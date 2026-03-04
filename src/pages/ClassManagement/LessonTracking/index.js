@@ -51,7 +51,7 @@ const LessonsPage = () => {
       status: 'completed'
     }
   });
-  
+
   // Status options
   const statusOptions = [
     { value: 'completed', label: 'Completed', color: 'success' },
@@ -111,15 +111,15 @@ const LessonsPage = () => {
       //   })));
       // }
       const surahsRes = await fetch('https://api.quran.com/api/v4/chapters');
-const surahsData = await surahsRes.json();
-if (surahsData.chapters) { // Check for the 'chapters' key
-  setSurahs(surahsData.chapters.map(s => ({
-    value: s.id, // Use 'id' for the Surah number
-    // Use 'name_arabic' for the Arabic script name
-    label: `${s.id}. ${s.name_arabic}`, 
-    ...s
-  })));
-}
+      const surahsData = await surahsRes.json();
+      if (surahsData.chapters) { // Check for the 'chapters' key
+        setSurahs(surahsData.chapters.map(s => ({
+          value: s.id, // Use 'id' for the Surah number
+          // Use 'name_arabic' for the Arabic script name
+          label: `${s.id}. ${s.name_arabic}`,
+          ...s
+        })));
+      }
 
       // Fetch lessons
       await fetchLessons();
@@ -161,8 +161,8 @@ if (surahsData.chapters) { // Check for the 'chapters' key
   //     toast.error("Error loading ayahs: " + error.message);
   //   }
   // };
-// Fetch ayahs for selected surah using the reliable Quran.com API
-const fetchAyahs = async (surahNumber) => {
+  // Fetch ayahs for selected surah using the reliable Quran.com API
+  const fetchAyahs = async (surahNumber) => {
     if (!surahNumber) return;
 
     // 1. Define API endpoints
@@ -172,41 +172,41 @@ const fetchAyahs = async (surahNumber) => {
     // const chapterUrl = `https://api.quran.com/api/v4/chapters/${surahNumber}`;
 
     try {
-        // --- A. Fetch Verses Data ---
-        const versesRes = await fetch(versesUrl);
-        if (!versesRes.ok) throw new Error('Failed to fetch verses data.');
-        const versesData = await versesRes.json();
-        
-        // --- B. Fetch Chapter/Surah Metadata ---
-        // const chapterRes = await fetch(chapterUrl);
-        // if (!chapterRes.ok) throw new Error('Failed to fetch chapter metadata.');
-        // const chapterData = await chapterRes.json();
+      // --- A. Fetch Verses Data ---
+      const versesRes = await fetch(versesUrl);
+      if (!versesRes.ok) throw new Error('Failed to fetch verses data.');
+      const versesData = await versesRes.json();
 
-        // --- C. Process and Map Ayahs ---
-        const ayahsList = versesData.verses || [];
-        const ayahOptions = ayahsList.map(ayah => ({
-            // value is the verse number within the Surah
-            value: ayah.verse_number, 
-            // label is the Arabic text in Uthmani script
-            label: ayah.text_uthmani 
-        }));
+      // --- B. Fetch Chapter/Surah Metadata ---
+      // const chapterRes = await fetch(chapterUrl);
+      // if (!chapterRes.ok) throw new Error('Failed to fetch chapter metadata.');
+      // const chapterData = await chapterRes.json();
 
-        // Set the processed Ayahs for your state
-        setAyahs(ayahOptions);
+      // --- C. Process and Map Ayahs ---
+      const ayahsList = versesData.verses || [];
+      const ayahOptions = ayahsList.map(ayah => ({
+        // value is the verse number within the Surah
+        value: ayah.verse_number,
+        // label is the Arabic text in Uthmani script
+        label: ayah.text_uthmani
+      }));
 
-        // --- D. Update Modal Data (using new field names) ---
-        // const surahMetadata = chapterData.chapter || {};
-        // const lastAyahNumber = ayahsList.length > 0 
-        //     ? ayahsList[ayahsList.length - 1].verse_number 
-        //     : 1;
+      // Set the processed Ayahs for your state
+      setAyahs(ayahOptions);
 
-  
+      // --- D. Update Modal Data (using new field names) ---
+      // const surahMetadata = chapterData.chapter || {};
+      // const lastAyahNumber = ayahsList.length > 0 
+      //     ? ayahsList[ayahsList.length - 1].verse_number 
+      //     : 1;
+
+
     } catch (error) {
-        // Use toast.error if it's available in your environment
-        // toast.error("Error loading ayahs: " + error.message);
-        console.error("Error loading ayahs:", error.message);
+      // Use toast.error if it's available in your environment
+      // toast.error("Error loading ayahs: " + error.message);
+      console.error("Error loading ayahs:", error.message);
     }
-};
+  };
   // Fetch lessons with filters
   const fetchLessons = async () => {
     setIsLoading(true);
@@ -298,7 +298,7 @@ const fetchAyahs = async (surahNumber) => {
 
   // Handle surah selection change
   const handleSurahChange = (selectedOption) => {
-    console.log("fhgkjdhgddhdflkdjflhj:",selectedOption ? selectedOption.name_simple);
+    // console.log("fhgkjdhgddhdflkdjflhj:",selectedOption ? selectedOption.name_simple);
     setModal(prev => ({
       ...prev,
       data: {
