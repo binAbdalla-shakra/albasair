@@ -9,7 +9,7 @@ module.exports = {
   },
   api: {
     // API_URL: "http://localhost:5000/api",
-    API_URL: "https://madrassa-backend.onrender.com/api",
+    API_URL: "https://albasair-api.vercel.app/api",
 
   }
 };
